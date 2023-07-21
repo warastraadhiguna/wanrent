@@ -1,0 +1,26 @@
+- download template di https://www.creative-tim.com/product/paper-dashboard-react
+- npm install
+blm ada node modulenya
+- pacakage.json ubah title dr paper dashboar react jd sesuai nama; hapus homepagecd
+- di layout/admin js hapus FixedPlugin
+- pada component navbars hapus yg ngga perlu
+misal navitem pablo
+- components/sidebar ganti namanya bukan creative tp admin 
+- pada routes hapus route yg ngga guna, view jg hapus deh
+
+- npm i redux react-redux redux-thunk
+- npm i axios jwt-decode
+- npm install moment --save // untuk atur waktu format
+- npm install reactstrap-date-picker // input date picker
+- npm i --save react-select // autosuggest input select
+- buat folder reducer
+- di index.js 
+import { Provider } from "react-redux"; 
+bungkus html dgn Provider
+- edit di layout admin pada Route dengan tulisan 
+- edit di component sidebar dengan props sidebar
+- nambah d dlm admin itu di routes.js
+- nambah login di index.js
+
+- tambah folder utils
+
