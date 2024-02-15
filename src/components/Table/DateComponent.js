@@ -8,7 +8,7 @@ import {
   InputGroupText,
   Label,
 } from "reactstrap";
-
+import { getLocalStorage } from "utils";
 export const DateComponent = ({
   startDate,
   endDate,
@@ -46,6 +46,9 @@ export const DateComponent = ({
             handleChange(event);
           }}
           className={`${isDateFilterChanged ? "text-danger" : ""}`}
+          disabled={
+            getLocalStorage("user").role === "superadmin" ? false : true
+          }
         />
         <Input
           type="text"
@@ -64,17 +67,18 @@ export const DateComponent = ({
             handleChange(event);
           }}
           className={`${isDateFilterChanged ? "text-danger" : ""}`}
+          disabled={
+            getLocalStorage("user").role === "superadmin" ? false : true
+          }
         />
         <InputGroupAddon
           title="Filter"
           addonType="append"
-          onClick={(event) => filterHandleSubmit(event)}
-        >
+          onClick={(event) => filterHandleSubmit(event)}>
           <InputGroupText
             className={`${
               isDateFilterChanged ? "bg-danger" : "bg-info"
-            }  text-dark`}
-          >
+            }  text-dark`}>
             <Label className="text-dark font-weight-bold ml-2">Filter</Label>
           </InputGroupText>
         </InputGroupAddon>

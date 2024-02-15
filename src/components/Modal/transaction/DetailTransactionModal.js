@@ -79,15 +79,13 @@ function DetailTransactionModal({ accessToken, modalToggle, handleClose }) {
     setOpenDownPayment(false);
     dispatch(endTransaction(accessToken, data));
   };
-
   return (
     <div>
       <Modal
         size="lg"
         isOpen={modalToggle}
         toggle={handleClose}
-        autoFocus={false}
-      >
+        autoFocus={false}>
         <ModalHeader toggle={handleClose} />
         <ModalBody className="text-center">
           <h3>Detail</h3>
@@ -112,8 +110,7 @@ function DetailTransactionModal({ accessToken, modalToggle, handleClose }) {
                       title="Info"
                       onClick={() => {
                         setModalOwnershipDetailToggle(true);
-                      }}
-                    >
+                      }}>
                       <InputGroupText className="bg-info text-dark">
                         <i className="nc-icon nc-alert-circle-i ml-2" />
                       </InputGroupText>
@@ -138,8 +135,7 @@ function DetailTransactionModal({ accessToken, modalToggle, handleClose }) {
                       title="Info"
                       onClick={() => {
                         setModalCustomerDetailToggle(true);
-                      }}
-                    >
+                      }}>
                       <InputGroupText className="bg-info text-dark">
                         <i className="nc-icon nc-alert-circle-i ml-2" />
                       </InputGroupText>
@@ -245,8 +241,7 @@ function DetailTransactionModal({ accessToken, modalToggle, handleClose }) {
                           setDownPayment(total);
                           setOpenDownPayment(false);
                         }
-                      }}
-                    >
+                      }}>
                       <InputGroupText className="bg-success text-dark">
                         <i className="nc-icon nc-single-copy-04 ml-2" />
                       </InputGroupText>

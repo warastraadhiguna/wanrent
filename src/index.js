@@ -16,6 +16,8 @@ import login from "views/login";
 axios.defaults.withCredentials = true;
 axios.defaults.baseURL = "http://localhost:5000/";
 // axios.defaults.baseURL = "http://192.168.1.100:5000/";
+////untuk d server
+// axios.defaults.baseURL = "https://wanrent-api.warastra-adhiguna.online";
 
 ReactDOM.render(
   <Provider store={store}>
