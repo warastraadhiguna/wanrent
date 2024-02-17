@@ -170,6 +170,7 @@ var routes = [
     component: TransactionList,
     layout: "/admin",
     sidebar: true,
+    role: "superadmin",
   },
   {
     path: "/transaction/edit/:id",
