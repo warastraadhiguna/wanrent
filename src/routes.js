@@ -240,6 +240,7 @@ var routes = [
     component: ReportList,
     layout: "/admin",
     sidebar: true,
+    role: "superadmin",
   },
   {
     path: "/master-data",

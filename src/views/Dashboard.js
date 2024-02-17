@@ -121,25 +121,26 @@ function Dashboard() {
             </>
           )}
 
-          <Col lg="3" md="6" sm="6">
-            <Link to="/admin/report">
-              <Card className="card-stats">
-                <CardBody>
-                  <Row>
-                    <Col md="4" xs="5">
-                      <div className="icon-big text-center icon-warning">
-                        <i className="nc-icon nc-icon nc-single-copy-04 text-warning" />
-                      </div>
-                    </Col>
-                    <Col md="8" xs="7">
-                      <div className="stats text-center m-3">Report</div>
-                    </Col>
-                  </Row>
-                </CardBody>
-              </Card>
-            </Link>
-          </Col>
-
+          {user.role && user.role.toLowerCase() === "superadmin" && (
+            <Col lg="3" md="6" sm="6">
+              <Link to="/admin/report">
+                <Card className="card-stats">
+                  <CardBody>
+                    <Row>
+                      <Col md="4" xs="5">
+                        <div className="icon-big text-center icon-warning">
+                          <i className="nc-icon nc-icon nc-single-copy-04 text-warning" />
+                        </div>
+                      </Col>
+                      <Col md="8" xs="7">
+                        <div className="stats text-center m-3">Report</div>
+                      </Col>
+                    </Row>
+                  </CardBody>
+                </Card>
+              </Link>
+            </Col>
+          )}
           {user.role && user.role.toLowerCase() === "superadmin" && (
             <Col lg="3" md="6" sm="6">
               <Link to="/admin/master-data">
