@@ -205,7 +205,7 @@ class ActiveTransactionList extends Component {
       this.setState({
         modalEndToggle: true,
       });
-    } else if (e.key === "F5") {
+    } else if (e.key === "F2") {
       this.props.dispatch(refreshToken());
     }
   };
@@ -279,7 +279,7 @@ class ActiveTransactionList extends Component {
                       onClick={() => {
                         this.props.dispatch(refreshToken());
                       }}>
-                      Refresh (F5)
+                      Refresh (F2)
                     </Button>
                   </Col>
                 </Row>
