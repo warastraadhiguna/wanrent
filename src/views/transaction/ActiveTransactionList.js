@@ -205,6 +205,8 @@ class ActiveTransactionList extends Component {
       this.setState({
         modalEndToggle: true,
       });
+    } else if (e.key === "F5") {
+      this.props.dispatch(refreshToken());
     }
   };
 
@@ -260,8 +262,7 @@ class ActiveTransactionList extends Component {
                         this.setState({
                           modalEndToggle: true,
                         });
-                      }}
-                    >
+                      }}>
                       End (F9)
                     </Button>
                     <Button
@@ -270,9 +271,15 @@ class ActiveTransactionList extends Component {
                         this.setState({
                           modalAddToggle: true,
                         });
-                      }}
-                    >
+                      }}>
                       Add (F1)
+                    </Button>
+                    <Button
+                      className="btn btn-info float-left"
+                      onClick={() => {
+                        this.props.dispatch(refreshToken());
+                      }}>
+                      Refresh (F5)
                     </Button>
                   </Col>
                 </Row>
@@ -426,8 +433,9 @@ class ActiveTransactionList extends Component {
                             <td align="center">
                               <Link
                                 className="btn btn-warning mr-2 mb-2"
-                                to={"/admin/transaction/edit/" + transaction.id}
-                              >
+                                to={
+                                  "/admin/transaction/edit/" + transaction.id
+                                }>
                                 <i className="nc-icon nc-ruler-pencil"></i> Edit
                               </Link>
                               {transaction.time_out ? (
@@ -439,8 +447,7 @@ class ActiveTransactionList extends Component {
                                     className="mr-2 mb-2"
                                     onClick={() =>
                                       this.deleteData(transaction.id)
-                                    }
-                                  >
+                                    }>
                                     <i className="nc-icon nc-basket"></i> Delete
                                   </Button>
                                   <Button
@@ -453,8 +460,7 @@ class ActiveTransactionList extends Component {
                                           transaction.ownership.code
                                         )
                                       )
-                                    }
-                                  >
+                                    }>
                                     <i className="nc-icon nc-check-2"></i> End
                                   </Button>
                                   <Button
@@ -465,8 +471,7 @@ class ActiveTransactionList extends Component {
                                         modalChangeToggle: true,
                                         id: transaction.id,
                                       });
-                                    }}
-                                  >
+                                    }}>
                                     <i className="nc-icon nc-refresh-69"></i>{" "}
                                     Change
                                   </Button>
