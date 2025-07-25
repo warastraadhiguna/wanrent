@@ -20,6 +20,7 @@ import {
 } from "../../actions/ownership/OwnershipAction";
 import ImageModal from "components/Modal/ImageModal";
 import { SearchComponent } from "components/Table";
+import { numberWithCommas } from "utils";
 
 class OwnershipList extends Component {
   constructor(props) {
@@ -125,8 +126,7 @@ class OwnershipList extends Component {
 
                 <Link
                   to="/admin/ownership/add"
-                  className="btn btn-primary float-right"
-                >
+                  className="btn btn-primary float-right">
                   Tambah Ownership
                 </Link>
               </CardHeader>
@@ -210,6 +210,13 @@ class OwnershipList extends Component {
                                     <td>:</td>
                                     <td>{ownership.supplier.phone}</td>
                                   </tr>
+                                  <tr>
+                                    <td>Target Value (Rupiah/Month)</td>
+                                    <td>:</td>
+                                    <td>
+                                      {numberWithCommas(ownership.target_value)}
+                                    </td>
+                                  </tr>
                                 </tbody>
                               </Table>
                             </td>
@@ -230,15 +237,13 @@ class OwnershipList extends Component {
                             <td align="center">
                               <Link
                                 className="btn btn-warning mr-2 mb-2"
-                                to={"/admin/ownership/edit/" + ownership.id}
-                              >
+                                to={"/admin/ownership/edit/" + ownership.id}>
                                 <i className="nc-icon nc-ruler-pencil"></i> Edit
                               </Link>
                               <Button
                                 color="danger"
                                 className="mr-2 mb-2"
-                                onClick={() => this.deleteData(ownership.id)}
-                              >
+                                onClick={() => this.deleteData(ownership.id)}>
                                 <i className="nc-icon nc-basket"></i> Delete
                               </Button>
                             </td>

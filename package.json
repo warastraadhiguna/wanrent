@@ -10,7 +10,7 @@
     "jquery": "3.6.0",
     "jwt-decode": "^3.1.2",
     "moment": "^2.29.3",
-    "node-sass": "6.0.0",
+    "node-sass": "^9.0.0",
     "perfect-scrollbar": "1.5.1",
     "react": "17.0.2",
     "react-chartjs-2": "3.0.3",
@@ -26,7 +26,7 @@
     "sweetalert": "^2.1.2"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "react-scripts --openssl-legacy-provider start",
     "build": "react-scripts build && gulp licenses",
     "test": "react-scripts test",
     "eject": "react-scripts eject",

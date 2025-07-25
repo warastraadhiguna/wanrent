@@ -31,6 +31,7 @@ class AddOwnership extends Component {
       file: "",
       preview: "",
       note: "",
+      target_value: "0",
       accessToken: "",
     };
   }
@@ -46,9 +47,9 @@ class AddOwnership extends Component {
   };
 
   handleSubmit = (event) => {
-    const { code, licence_plate } = this.state;
+    const { code, licence_plate, target_value } = this.state;
     event.preventDefault();
-    if ((code, licence_plate)) {
+    if ((code, licence_plate, target_value)) {
       this.props.dispatch(addOwnership(this.state.accessToken, this.state));
     } else {
       swal("Failed!", "Detail Vehicle should be filled", "error");
@@ -132,8 +133,15 @@ class AddOwnership extends Component {
   };
 
   render() {
-    const { id_supplier, id_vehicle, code, licence_plate, note, preview } =
-      this.state;
+    const {
+      id_supplier,
+      id_vehicle,
+      code,
+      licence_plate,
+      note,
+      preview,
+      target_value,
+    } = this.state;
     const {
       addOwnershipLoading,
       getSupplierLoading,
@@ -163,8 +171,7 @@ class AddOwnership extends Component {
                             name="id_supplier"
                             onChange={(event) => this.handleChange(event)}
                             value={id_supplier}
-                            options={getSupplierResult.data}
-                          >
+                            options={getSupplierResult.data}>
                             {getSupplierResult &&
                               getSupplierResult.data.map((supplier, index) => (
                                 <option key={index} value={supplier.id}>
@@ -188,8 +195,7 @@ class AddOwnership extends Component {
                             name="id_vehicle"
                             onChange={(event) => this.handleChange(event)}
                             value={id_vehicle}
-                            options={getVehicleResult.data}
-                          >
+                            options={getVehicleResult.data}>
                             {getVehicleResult &&
                               getVehicleResult.data.map((vehicle, index) => (
                                 <option key={index} value={vehicle.id}>
@@ -247,6 +253,19 @@ class AddOwnership extends Component {
                   <Row>
                     <Col md={6}>
                       <FormGroup>
+                        <label>Target Value (Rupiah/Month)</label>
+                        <Input
+                          type="number"
+                          value={target_value}
+                          name="target_value"
+                          onChange={(event) => this.handleChange(event)}
+                        />
+                      </FormGroup>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col md={6}>
+                      <FormGroup>
                         <label>Image</label>
                         <img src={preview} alt="" width={100} />
                       </FormGroup>
@@ -275,8 +294,7 @@ class AddOwnership extends Component {
                           <Button color="primary">Submit</Button>
                           <Link
                             to="/admin/ownerships"
-                            className="btn btn-warning"
-                          >
+                            className="btn btn-warning">
                             Kembali
                           </Link>
                         </>

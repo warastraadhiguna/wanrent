@@ -6,11 +6,13 @@ import {
   editOwnershipInternal,
   getDetailOwnershipInternal,
   getOwnershipListInternal,
+  getOwnershipTargetValuesInternal,
 } from "./OwnershipHelper";
 import { checkAccessTokenJwtExpired } from "actions/Helper";
 
 export const GET_OWNERSHIP_LIST = "GET_OWNERSHIP_LIST";
 export const GET_DETAIL_OWNERSHIP = "GET_DETAIL_OWNERSHIP";
+export const GET_OWNERSHIP_TARGET_VALUES = "GET_OWNERSHIP_TARGET_VALUES";
 export const ADD_OWNERSHIP = "ADD_OWNERSHIP";
 export const EDIT_OWNERSHIP = "EDIT_OWNERSHIP";
 export const DELETE_OWNERSHIP = "DELETE_OWNERSHIP";
@@ -38,6 +40,41 @@ export const getOwnershipList = (accessToken) => {
           });
       } else
         getOwnershipListInternal(accessToken, dispatch, GET_OWNERSHIP_LIST);
+    }
+  };
+};
+
+export const getOwnershipTargetValues = (accessToken) => {
+  return (dispatch) => {
+    dispatchLoading(dispatch, GET_OWNERSHIP_TARGET_VALUES);
+    if (!accessToken) {
+      dispatchError(dispatch, GET_OWNERSHIP_TARGET_VALUES, {
+        message: "Authentification Failed",
+      });
+    } else {
+      if (checkAccessTokenJwtExpired(accessToken)) {
+        axios
+          .get("token")
+          .then((response) => {
+            getOwnershipTargetValuesInternal(
+              response.data.accessToken,
+              dispatch,
+              GET_OWNERSHIP_TARGET_VALUES
+            );
+          })
+          .catch((error) => {
+            dispatchError(
+              dispatch,
+              GET_OWNERSHIP_TARGET_VALUES,
+              error.response.data
+            );
+          });
+      } else
+        getOwnershipTargetValuesInternal(
+          accessToken,
+          dispatch,
+          GET_OWNERSHIP_TARGET_VALUES
+        );
     }
   };
 };

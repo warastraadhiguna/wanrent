@@ -27,6 +27,7 @@ import "moment/locale/id";
 import { numberWithCommas } from "utils";
 import DetailTransactionModal from "components/Modal/transaction/DetailTransactionModal";
 import { SearchComponent } from "components/Table";
+import RecommendationModal from "components/Modal/transaction/RecommendationModal";
 
 class ActiveTransactionList extends Component {
   constructor(props) {
@@ -35,6 +36,7 @@ class ActiveTransactionList extends Component {
     this.state = {
       id: "",
       modalAddToggle: false,
+      modalRecommendationToggle: false,
       modalEndToggle: false,
       modalDetailToggle: false,
       modalChangeToggle: false,
@@ -207,6 +209,10 @@ class ActiveTransactionList extends Component {
       });
     } else if (e.key === "F2") {
       this.props.dispatch(refreshToken());
+    } else if (e.key === "F4") {
+      this.setState({
+        modalRecommendationToggle: true,
+      });
     }
   };
 
@@ -240,6 +246,7 @@ class ActiveTransactionList extends Component {
     const {
       modalAddToggle,
       modalEndToggle,
+      modalRecommendationToggle,
       accessToken,
       modalDetailToggle,
       modalChangeToggle,
@@ -263,7 +270,7 @@ class ActiveTransactionList extends Component {
                           modalEndToggle: true,
                         });
                       }}>
-                      End (F9)
+                      End(F9)
                     </Button>
                     <Button
                       className="btn btn-success float-right"
@@ -272,14 +279,23 @@ class ActiveTransactionList extends Component {
                           modalAddToggle: true,
                         });
                       }}>
-                      Add (F1)
+                      Add(F1)
                     </Button>
                     <Button
                       className="btn btn-info float-left"
                       onClick={() => {
                         this.props.dispatch(refreshToken());
                       }}>
-                      Refresh (F2)
+                      Ref(F2)
+                    </Button>
+                    <Button
+                      className="btn btn-dark float-left"
+                      onClick={() => {
+                        this.setState({
+                          modalRecommendationToggle: true,
+                        });
+                      }}>
+                      Rec(F4)
                     </Button>
                   </Col>
                 </Row>
@@ -499,6 +515,14 @@ class ActiveTransactionList extends Component {
             </Card>
           </Col>
         </Row>
+        <RecommendationModal
+          title="Recommendation Motorcycle"
+          modalToggle={modalRecommendationToggle}
+          handleClose={() =>
+            this.setState({ modalRecommendationToggle: false })
+          }
+          accessToken={accessToken}
+        />
         <SearchByCodeTransactionModal
           title="Add Transaction"
           modalToggle={modalAddToggle}

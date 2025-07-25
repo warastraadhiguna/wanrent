@@ -20,6 +20,25 @@ export const getOwnershipListInternal = (
     });
 };
 
+export const getOwnershipTargetValuesInternal = (
+  accessToken,
+  dispatch,
+  CONSTANT_ACTION
+) => {
+  axios
+    .get("ownerships-target-values", {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    })
+    .then((response) => {
+      dispatchSuccess(dispatch, CONSTANT_ACTION, response.data);
+    })
+    .catch((error) => {
+      dispatchError(dispatch, CONSTANT_ACTION, error.response.data);
+    });
+};
+
 export const getDetailOwnershipInternal = (
   accessToken,
   dispatch,
@@ -53,6 +72,7 @@ export const addOwnershipInternal = (
   formData.append("note", data.note);
   formData.append("licence_plate", data.licence_plate);
   formData.append("file", data.file);
+  formData.append("target_value", data.target_value);
 
   axios
     .post("ownerships", formData, {
@@ -83,6 +103,7 @@ export const editOwnershipInternal = (
   formData.append("note", data.note);
   formData.append("licence_plate", data.licence_plate);
   formData.append("file", data.file);
+  formData.append("target_value", data.target_value);
 
   axios
     .patch("ownerships", formData, {
