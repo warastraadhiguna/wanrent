@@ -7,8 +7,10 @@ const DetailReportModal = ({
   handleClose,
   choosenDetailReport,
   detailTotalPaymentSummary,
+  detailTotalRealPaymentSummary,
   detailTotalTotalCostSummary,
   detailTotalNettoSummary,
+  detailTotalRealNettoSummary,
 }) => {
   return (
     <Modal
@@ -63,9 +65,20 @@ const DetailReportModal = ({
               <td colSpan={2} className="text-center">
                 TOTAL
               </td>
-              <td>Rp. {numberWithCommas(detailTotalPaymentSummary)}</td>
+              <td>
+                Rp. {numberWithCommas(detailTotalPaymentSummary)}
+                <br />
+                <small>
+                  Rp. {numberWithCommas(detailTotalRealPaymentSummary)}
+                </small>
+              </td>
               <td>Rp. {numberWithCommas(detailTotalTotalCostSummary)}</td>
-              <td>Rp. {numberWithCommas(detailTotalNettoSummary)}</td>
+              <td>
+                Rp. {numberWithCommas(detailTotalNettoSummary)} <br />
+                <small>
+                  Rp. {numberWithCommas(detailTotalRealNettoSummary)}
+                </small>
+              </td>
             </tr>
           </tbody>
         </Table>

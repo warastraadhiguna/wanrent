@@ -46,6 +46,7 @@ export class ReportList extends Component {
       totalRealNettoSummary: 0,
 
       detailTotalPaymentSummary: 0,
+      detailTotalRealPaymentSummary: 0,
       detailTotalTotalCostSummary: 0,
       detailTotalNettoSummary: 0,
       detailTotalRealNettoSummary: 0,
@@ -224,16 +225,20 @@ export class ReportList extends Component {
     let detailTotalTotalCostSummary = 0;
     let detailTotalNettoSummary = 0;
     let detailTotalRealNettoSummary = 0;
+    let detailTotalRealPaymentSummary = 0;
 
     choosenDetailReport.map((report) => {
       detailTotalPaymentSummary =
         detailTotalPaymentSummary + parseInt(report.total_payment_rent);
+      detailTotalRealPaymentSummary =
+        detailTotalRealPaymentSummary +
+        parseInt(report.total_real_payment_rent);
       detailTotalTotalCostSummary =
         detailTotalTotalCostSummary + parseInt(report.total_cost);
       detailTotalNettoSummary =
         detailTotalNettoSummary + parseInt(report.netto);
       detailTotalRealNettoSummary =
-        detailTotalNettoSummary + parseInt(report.real_netto);
+        detailTotalRealNettoSummary + parseInt(report.real_netto);
       return 0;
     });
 
@@ -241,6 +246,7 @@ export class ReportList extends Component {
       modalDetailToggle: true,
       choosenDetailReport,
       detailTotalPaymentSummary,
+      detailTotalRealPaymentSummary,
       detailTotalTotalCostSummary,
       detailTotalNettoSummary,
       detailTotalRealNettoSummary,
@@ -402,8 +408,12 @@ export class ReportList extends Component {
           handleClose={() => this.setState({ modalDetailToggle: false })}
           choosenDetailReport={this.state.choosenDetailReport}
           detailTotalPaymentSummary={this.state.detailTotalPaymentSummary}
+          detailTotalRealPaymentSummary={
+            this.state.detailTotalRealPaymentSummary
+          }
           detailTotalTotalCostSummary={this.state.detailTotalTotalCostSummary}
           detailTotalNettoSummary={this.state.detailTotalNettoSummary}
+          detailTotalRealNettoSummary={this.state.detailTotalRealNettoSummary}
         />
         <DetailCompanyCostReportModal
           modalToggle={this.state.modalDetailCompanyCostToggle}
