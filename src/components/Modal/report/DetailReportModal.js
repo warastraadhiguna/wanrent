@@ -15,8 +15,7 @@ const DetailReportModal = ({
       autoFocus={false}
       size="lg"
       isOpen={modalToggle}
-      toggle={handleClose}
-    >
+      toggle={handleClose}>
       <ModalHeader toggle={handleClose} />
       <ModalBody>
         <h3 className="text-center">Detail Report</h3>
@@ -38,9 +37,19 @@ const DetailReportModal = ({
                   <td>
                     {report.code} - {report.licence_plate}
                   </td>
-                  <td>{numberWithCommas(report.total_payment_rent)}</td>
+                  <td>
+                    {numberWithCommas(report.total_payment_rent)}
+                    <br />
+                    <small>
+                      {numberWithCommas(report.total_real_payment_rent)}
+                    </small>
+                  </td>
                   <td>{numberWithCommas(report.total_cost)}</td>
-                  <td>{numberWithCommas(report.netto)}</td>
+                  <td>
+                    {numberWithCommas(report.netto)}
+                    <br />
+                    <small>{numberWithCommas(report.real_netto)}</small>
+                  </td>
                 </tr>
               ))
             ) : (

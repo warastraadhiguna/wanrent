@@ -39,13 +39,16 @@ export class ReportList extends Component {
 
       totalCompanyCostSummary: 0,
       totalPaymentSummary: 0,
+      totalRealPaymentSummary: 0,
       totalPersonalCostSummary: 0,
       totalTotalCostSummary: 0,
       totalNettoSummary: 0,
+      totalRealNettoSummary: 0,
 
       detailTotalPaymentSummary: 0,
       detailTotalTotalCostSummary: 0,
       detailTotalNettoSummary: 0,
+      detailTotalRealNettoSummary: 0,
     };
   }
 
@@ -85,27 +88,34 @@ export class ReportList extends Component {
       });
 
       let totalPaymentSummary = 0;
+      let totalRealPaymentSummary = 0;
       let totalPersonalCostSummary = 0;
       let totalTotalCostSummary = 0;
       let totalNettoSummary = 0;
+      let totalRealNettoSummary = 0;
 
       getReportResult.data.map((report) => {
         totalPaymentSummary =
           totalPaymentSummary + parseInt(report.total_payment_rent);
+        totalRealPaymentSummary =
+          totalRealPaymentSummary + parseInt(report.total_real_payment_rent);
         totalPersonalCostSummary =
           totalPersonalCostSummary + parseInt(report.personal_cost_total);
         totalTotalCostSummary =
           totalTotalCostSummary + parseInt(report.cost_total);
         totalNettoSummary = totalNettoSummary + parseInt(report.netto);
-
+        totalRealNettoSummary =
+          totalRealNettoSummary + parseInt(report.real_netto);
         return 0;
       });
 
       this.setState({
         totalPaymentSummary,
+        totalRealPaymentSummary,
         totalPersonalCostSummary,
         totalTotalCostSummary,
         totalNettoSummary,
+        totalRealNettoSummary,
       });
     }
     if (getReportError && prevProps.getReportError !== getReportError) {
@@ -213,6 +223,7 @@ export class ReportList extends Component {
     let detailTotalPaymentSummary = 0;
     let detailTotalTotalCostSummary = 0;
     let detailTotalNettoSummary = 0;
+    let detailTotalRealNettoSummary = 0;
 
     choosenDetailReport.map((report) => {
       detailTotalPaymentSummary =
@@ -221,7 +232,8 @@ export class ReportList extends Component {
         detailTotalTotalCostSummary + parseInt(report.total_cost);
       detailTotalNettoSummary =
         detailTotalNettoSummary + parseInt(report.netto);
-
+      detailTotalRealNettoSummary =
+        detailTotalNettoSummary + parseInt(report.real_netto);
       return 0;
     });
 
@@ -231,6 +243,7 @@ export class ReportList extends Component {
       detailTotalPaymentSummary,
       detailTotalTotalCostSummary,
       detailTotalNettoSummary,
+      detailTotalRealNettoSummary,
     });
   };
 
@@ -240,9 +253,11 @@ export class ReportList extends Component {
       endDate,
       isDateFilterChanged,
       totalPaymentSummary,
+      totalRealPaymentSummary,
       totalPersonalCostSummary,
       totalTotalCostSummary,
       totalNettoSummary,
+      totalRealNettoSummary,
       totalCompanyCostSummary,
     } = this.state;
     const { getReportLoading, getReportResult } = this.props;
@@ -285,18 +300,29 @@ export class ReportList extends Component {
                         <tr key={index}>
                           <td>{index + 1}</td>
                           <td>{report.name}</td>
-                          <td>{numberWithCommas(report.total_payment_rent)}</td>
+                          <td>
+                            {numberWithCommas(report.total_payment_rent)}
+                            <br />
+                            <small>
+                              {numberWithCommas(report.total_real_payment_rent)}
+                            </small>
+                          </td>
                           <td>
                             {numberWithCommas(report.personal_cost_total)}
                           </td>
                           <td>{numberWithCommas(report.cost_total)}</td>
-                          <td>{numberWithCommas(report.netto)}</td>
+                          <td>
+                            {numberWithCommas(report.netto)}
+                            <br />
+                            <small>{numberWithCommas(report.real_netto)}</small>
+                          </td>
                           <td align="center">
                             <Button
                               color="info"
                               className="ml-2"
-                              onClick={() => this.handleDetailReport(report.id)}
-                            >
+                              onClick={() =>
+                                this.handleDetailReport(report.id)
+                              }>
                               <i className="nc-icon nc-zoom-split"></i> Detail
                             </Button>
                           </td>
@@ -317,11 +343,20 @@ export class ReportList extends Component {
                     )}
                     <tr className="font-weight-bold">
                       <td colSpan={2}>TOTAL</td>
-                      <td>Rp. {numberWithCommas(totalPaymentSummary)}</td>
+                      <td>
+                        Rp. {numberWithCommas(totalPaymentSummary)} <br />
+                        <small>
+                          Rp. {numberWithCommas(totalRealPaymentSummary)}
+                        </small>
+                      </td>
                       <td>Rp. {numberWithCommas(totalPersonalCostSummary)}</td>
                       <td>Rp. {numberWithCommas(totalTotalCostSummary)}</td>
                       <td colSpan={2}>
                         Rp. {numberWithCommas(totalNettoSummary)}
+                        <br />
+                        <small>
+                          Rp. {numberWithCommas(totalRealNettoSummary)}
+                        </small>
                       </td>
                     </tr>
                     <tr className="font-weight-bold">
@@ -335,8 +370,7 @@ export class ReportList extends Component {
                             this.setState({
                               modalDetailCompanyCostToggle: true,
                             })
-                          }
-                        >
+                          }>
                           <i className="nc-icon nc-zoom-split"></i> Detail
                         </Button>
                       </td>
@@ -348,6 +382,13 @@ export class ReportList extends Component {
                         {numberWithCommas(
                           totalNettoSummary - totalCompanyCostSummary
                         )}
+                        <br />
+                        <small>
+                          Rp.{" "}
+                          {numberWithCommas(
+                            totalRealNettoSummary - totalCompanyCostSummary
+                          )}
+                        </small>
                       </td>
                     </tr>
                   </tbody>
