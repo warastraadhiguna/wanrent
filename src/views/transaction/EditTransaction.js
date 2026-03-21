@@ -36,6 +36,22 @@ import AddPaymentModal from "components/Modal/payment/AddPaymentModal";
 import CustomerDetailModal from "components/Modal/CustomerDetailModal";
 import { getPaymentList } from "actions/payment/PaymentAction";
 
+const getTypeDisplayName = (typeName = "") => {
+  const typeTranslations = {
+    matic: "Automatic",
+    automatic: "Automatic",
+    bebek: "Underbone",
+    sport: "Sport",
+    kopling: "Manual Clutch",
+    manual: "Manual",
+    trail: "Off-road",
+    touring: "Touring",
+    listrik: "Electric",
+  };
+
+  return typeTranslations[typeName.trim().toLowerCase()] || typeName;
+};
+
 class EditTransaction extends Component {
   constructor(props) {
     super(props);
@@ -46,6 +62,7 @@ class EditTransaction extends Component {
       modalOwnershipDetailToggle: false,
       modalChooseCustomerToggle: false,
       modalCustomerDetailToggle: false,
+      id_type: "",
       id_ownership: "",
       id_customer: "",
       time_in: "",
@@ -195,6 +212,9 @@ class EditTransaction extends Component {
         this.props.history.push("/admin/dashboard");
       } else {
         this.setState({
+          id_type: getDetailTransactionResult.data.id_type
+            ? getDetailTransactionResult.data.id_type.toString()
+            : "",
           id_ownership: getDetailTransactionResult.data.id_ownership,
           ownership: getDetailTransactionResult.data.ownership,
           note: getDetailTransactionResult.data.note,
@@ -270,6 +290,7 @@ class EditTransaction extends Component {
       id,
       ownership,
       customer,
+      id_type,
       time_in,
       time_out,
       note,
@@ -283,7 +304,12 @@ class EditTransaction extends Component {
       modalAddToggle,
       totalTimeString,
     } = this.state;
-    const { editTransactionLoading, deletePaymentLoading } = this.props;
+    const {
+      editTransactionLoading,
+      deletePaymentLoading,
+      getTypeResult,
+      getTypeLoading,
+    } = this.props;
     return (
       <div className="content">
         <Row>
@@ -365,6 +391,30 @@ class EditTransaction extends Component {
                     </Col>
                   </Row>
                   <Row>
+                    <Col md={6}>
+                      <FormGroup>
+                        <label>Motor Type</label>
+                        {getTypeLoading ? (
+                          <Spinner size="sm" color="light" />
+                        ) : (
+                          <Input
+                            type="select"
+                            name="id_type"
+                            value={id_type}
+                            onChange={(event) => this.handleChange(event)}
+                            disabled={time_out}
+                          >
+                            <option value="">Select motor type (optional)</option>
+                            {getTypeResult &&
+                              getTypeResult.data.map((type, index) => (
+                                <option key={index} value={type.id}>
+                                  {getTypeDisplayName(type.name)}
+                                </option>
+                              ))}
+                          </Input>
+                        )}
+                      </FormGroup>
+                    </Col>
                     <Col md={6}>
                       <FormGroup>
                         <label>Time In</label>
@@ -582,6 +632,14 @@ const mapStateToProps = (state) => ({
   getDetailTransactionResult:
     state.TransactionReducer.getDetailTransactionResult,
   getDetailTransactionError: state.TransactionReducer.getDetailTransactionError,
+
+  getBrandLoading: state.BrandReducer.getBrandLoading,
+  getBrandResult: state.BrandReducer.getBrandResult,
+  getBrandError: state.BrandReducer.getBrandError,
+
+  getTypeLoading: state.TypeReducer.getTypeLoading,
+  getTypeResult: state.TypeReducer.getTypeResult,
+  getTypeError: state.TypeReducer.getTypeError,
 
   getCustomerLoading: state.CustomerReducer.getCustomerLoading,
   getCustomerResult: state.CustomerReducer.getCustomerResult,

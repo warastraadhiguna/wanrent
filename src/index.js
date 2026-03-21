@@ -14,10 +14,10 @@ import axios from "axios";
 import login from "views/login";
 
 axios.defaults.withCredentials = true;
-axios.defaults.baseURL = "http://localhost:5000/";
-// axios.defaults.baseURL = "http://192.168.1.100:5000/";
+// axios.defaults.baseURL = "http://localhost:5000/";
+// axios.defaults.baseURL = "http://192.168.1.5:5000/";
 ////untuk d server
-// axios.defaults.baseURL = "https://wanrent-api.gelorasports.com";
+axios.defaults.baseURL = "https://wanrent-api.gelorasports.com";
 
 ReactDOM.render(
   <Provider store={store}>
@@ -29,5 +29,5 @@ ReactDOM.render(
       </Switch>
     </BrowserRouter>
   </Provider>,
-  document.getElementById("root")
+  document.getElementById("root"),
 );

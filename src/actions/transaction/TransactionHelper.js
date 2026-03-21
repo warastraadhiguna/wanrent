@@ -111,6 +111,7 @@ export const editTransactionInternal = (
       {
         id: data.id,
         id_customer: data.id_customer,
+        id_type: data.id_type ? parseInt(data.id_type, 10) : null,
         note: data.note,
         code: data.code,
       },

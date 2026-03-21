@@ -29,6 +29,36 @@ import DetailTransactionModal from "components/Modal/transaction/DetailTransacti
 import { SearchComponent } from "components/Table";
 import RecommendationModal from "components/Modal/transaction/RecommendationModal";
 
+const getTypeDisplayName = (typeName = "") => {
+  const typeTranslations = {
+    matic: "Automatic",
+    automatic: "Automatic",
+    bebek: "Underbone",
+    sport: "Sport",
+    kopling: "Manual Clutch",
+    manual: "Manual",
+    trail: "Off-road",
+    touring: "Touring",
+    listrik: "Electric",
+  };
+
+  return typeTranslations[typeName.trim().toLowerCase()] || typeName;
+};
+
+const getTransactionCodeLabel = (transaction) => {
+  const code = transaction.ownership ? transaction.ownership.code : "";
+  const typeName =
+    (transaction.type && transaction.type.name) ||
+    transaction.type_name ||
+    "";
+
+  if (!code || !transaction.id_type || !typeName) {
+    return code;
+  }
+
+  return `${code} (${getTypeDisplayName(typeName)})`;
+};
+
 class ActiveTransactionList extends Component {
   constructor(props) {
     super(props);
@@ -350,10 +380,7 @@ class ActiveTransactionList extends Component {
                                   <tr>
                                     <td>Code</td>
                                     <td>:</td>
-                                    <td>
-                                      {transaction.ownership &&
-                                        transaction.ownership.code}
-                                    </td>
+                                    <td>{getTransactionCodeLabel(transaction)}</td>
                                   </tr>
                                   <tr>
                                     <td>Customer</td>
