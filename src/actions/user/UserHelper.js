@@ -44,14 +44,13 @@ export const addUserInternal = (
 ) => {
   const formData = new FormData();
   formData.append("name", data.name);
-  formData.append("file", data.file);
+  if (data.file instanceof File) formData.append("file", data.file);
   formData.append("username", data.username);
   formData.append("password", data.password);
   axios
     .post("users", formData, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
-        "Content-Type": "multipart/form-data",
       },
     })
     .then((response) => {
@@ -73,7 +72,7 @@ export const editUserInternal = (
     formData.append("id", data.id);
     formData.append("name", data.name);
     formData.append("username", data.username);
-    formData.append("file", data.file);
+    if (data.file instanceof File) formData.append("file", data.file);
   } else {
     formData.append("id", data.id);
     formData.append("password", data.password);
@@ -83,7 +82,6 @@ export const editUserInternal = (
     .patch("users", formData, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
-        "Content-Type": "multipart/form-data",
       },
     })
     .then((response) => {

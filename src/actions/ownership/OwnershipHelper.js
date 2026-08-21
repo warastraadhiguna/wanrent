@@ -71,14 +71,13 @@ export const addOwnershipInternal = (
   formData.append("code", data.code);
   formData.append("note", data.note);
   formData.append("licence_plate", data.licence_plate);
-  formData.append("file", data.file);
+  if (data.file instanceof File) formData.append("file", data.file);
   formData.append("target_value", data.target_value);
 
   axios
     .post("ownerships", formData, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
-        "Content-Type": "multipart/form-data",
       },
     })
     .then((response) => {
@@ -102,14 +101,13 @@ export const editOwnershipInternal = (
   formData.append("code", data.code);
   formData.append("note", data.note);
   formData.append("licence_plate", data.licence_plate);
-  formData.append("file", data.file);
+  if (data.file instanceof File) formData.append("file", data.file);
   formData.append("target_value", data.target_value);
 
   axios
     .patch("ownerships", formData, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
-        "Content-Type": "multipart/form-data",
       },
     })
     .then((response) => {

@@ -49,14 +49,13 @@ export const addCustomerInternal = (
 ) => {
   const formData = new FormData();
   formData.append("name", data.name);
-  formData.append("file", data.file);
+  if (data.file instanceof File) formData.append("file", data.file);
   formData.append("phone", data.phone);
   formData.append("note", data.note);
   axios
     .post("customers", formData, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
-        "Content-Type": "multipart/form-data",
       },
     })
     .then((response) => {
@@ -78,14 +77,13 @@ export const editCustomerInternal = (
   formData.append("id", data.id);
   formData.append("name", data.name);
   formData.append("phone", data.phone);
-  formData.append("file", data.file);
+  if (data.file instanceof File) formData.append("file", data.file);
   formData.append("note", data.note);
 
   axios
     .patch("customers", formData, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
-        "Content-Type": "multipart/form-data",
       },
     })
     .then((response) => {

@@ -28,13 +28,12 @@ export const addSupplierInternal = (
 ) => {
   const formData = new FormData();
   formData.append("name", data.name);
-  formData.append("file", data.file);
+  if (data.file instanceof File) formData.append("file", data.file);
   formData.append("phone", data.phone);
   axios
     .post("suppliers", formData, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
-        "Content-Type": "multipart/form-data",
       },
     })
     .then((response) => {
@@ -76,13 +75,12 @@ export const editSupplierInternal = (
   formData.append("id", data.id);
   formData.append("name", data.name);
   formData.append("phone", data.phone);
-  formData.append("file", data.file);
+  if (data.file instanceof File) formData.append("file", data.file);
 
   axios
     .patch("suppliers", formData, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
-        "Content-Type": "multipart/form-data",
       },
     })
     .then((response) => {

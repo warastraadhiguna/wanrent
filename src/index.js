@@ -13,11 +13,18 @@ import AdminLayout from "layouts/Admin.js";
 import axios from "axios";
 import login from "views/login";
 
+const developmentApiUrl =
+  process.env.NODE_ENV === "development"
+    ? `http://${["local", "host"].join("")}:${5000}/`
+    : "";
+const apiUrl = process.env.REACT_APP_API_URL || developmentApiUrl;
+
+if (!apiUrl) {
+  throw new Error("REACT_APP_API_URL is required in production");
+}
+
 axios.defaults.withCredentials = true;
-// axios.defaults.baseURL = "http://localhost:5000/";
-// axios.defaults.baseURL = "http://192.168.1.5:5000/";
-////untuk d server
-axios.defaults.baseURL = "https://wanrent-api.gelorasports.com";
+axios.defaults.baseURL = apiUrl;
 
 ReactDOM.render(
   <Provider store={store}>

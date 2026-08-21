@@ -16,6 +16,7 @@ import {
   Spinner,
 } from "reactstrap";
 import swal from "sweetalert";
+import { getImageValidationError, IMAGE_ACCEPT } from "../../utils";
 import { getSupplierList } from "actions/supplier/SupplierAction";
 import { getVehicleList } from "actions/vehicle/VehicleAction";
 
@@ -128,8 +129,14 @@ class AddOwnership extends Component {
 
   loadImage = (e) => {
     const file = e.target.files[0];
-    this.setState({ file });
-    this.setState({ preview: URL.createObjectURL(file) });
+    if (!file) return;
+    const error = getImageValidationError(file);
+    if (error) {
+      e.target.value = "";
+      this.setState({ file: "", preview: "" });
+      return swal("Error!", error, "error");
+    }
+    this.setState({ file, preview: URL.createObjectURL(file) });
   };
 
   render() {
@@ -276,6 +283,7 @@ class AddOwnership extends Component {
                       <FormGroup>
                         <input
                           type="file"
+                          accept={IMAGE_ACCEPT}
                           className="file-input"
                           onChange={(event) => this.loadImage(event)}
                         />
